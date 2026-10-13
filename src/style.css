@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer components {
+  .input-style {
+    @apply w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 text-zinc-800 dark:text-white text-left focus:outline-none focus:border-orange-500 transition-colors;
+  }
+}
+
+/* --- Maps (Leaflet) --- */
+
+/* Keep Leaflet's internal z-indexes (up to 1000) from covering the navbar and modals */
+.leaflet-container {
+  isolation: isolate;
+  z-index: 0;
+  font-family: inherit;
+}
+
+.qb-tiles-dark {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);
+}
+
+.qb-marker {
+  background: transparent;
+  border: none;
+}
+
+.qb-marker-pin {
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.35);
+}
+
+.qb-marker-pin span {
+  transform: rotate(45deg);
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Glide the rider between position updates; skip it while zooming so it doesn't drift */
+.qb-rider {
+  transition: transform 1s linear;
+}
+.leaflet-zoom-anim .qb-rider {
+  transition: none;
+}
